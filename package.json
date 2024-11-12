@@ -4,7 +4,7 @@
   "description": "I18n plugin to help you find unused translations",
   "main": "./src/plugin.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "author": "Markus Kraijenoord",
   "license": "MIT",
