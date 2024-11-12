@@ -2,7 +2,7 @@
   "name": "i18n-lastused-plugin",
   "version": "1.0.0",
   "description": "I18n plugin to help you find unused translations",
-  "main": "./src/LastUsed.ts",
+  "main": "./src/plugin.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
