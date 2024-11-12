@@ -1,0 +1,8 @@
+services:
+  npm:
+    image: node:20
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: [npm]
+    user: '${UID:-1000}:${GID:-1000}'

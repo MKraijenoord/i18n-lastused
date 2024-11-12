@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "{src,test}/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "typesRoots": [
+    "node_modules"
+  ],
+  "types": [
+    "vitest/globals",
+    "node"
+  ]
+}
