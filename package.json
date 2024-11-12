@@ -4,11 +4,13 @@
   "description": "I18n plugin to help you find unused translations",
   "main": "./src/plugin.ts",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "esbuild src/plugin.ts --bundle --outdir=lib"
   },
   "author": "Markus Kraijenoord",
   "license": "MIT",
   "devDependencies": {
+    "esbuild": "^0.24.0",
     "fetch-mock": "^12.1.0",
     "jsdom": "^25.0.1",
     "typescript": "^5.6.3",
