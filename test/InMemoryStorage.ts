@@ -1,6 +1,8 @@
 export default class InMemoryStorage implements Storage {
   private store: Record<string, string> = {};
 
+  [name: string]: any;
+
   get length(): number {
     return Object.keys(this.store).length;
   }

@@ -8,7 +8,7 @@ interface LastUsedOptions {
 
 declare module 'i18next' {
   interface CustomPluginOptions {
-    lastUsed?: LastUsedOptions;
+    lastUsed: LastUsedOptions;
   }
 }
 
@@ -23,7 +23,7 @@ export class UsedTranslations {
   init(): void {
     const intervalId = this.storage.getItem('intervalId');
     if (intervalId) {
-      clearInterval(intervalId);
+      clearInterval(parseInt(intervalId, 10));
     }
     const newIntervalId = setInterval(() => {
       this.send();
@@ -32,7 +32,8 @@ export class UsedTranslations {
   }
 
   private getTranslations(): Translations {
-    return JSON.parse(this.storage.getItem('translations')) || {};
+    const translations = this.storage.getItem('translations');
+    return translations ? JSON.parse(translations) : {};
   }
 
   send(): void {
