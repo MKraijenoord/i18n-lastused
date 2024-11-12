@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock';
 import { describe, expect, it } from 'vitest';
 import InMemoryStorage from '../test/InMemoryStorage';
-import { UsedTranslations } from './LastUsed';
+import LastUsed from './LastUsed';
 
 describe('LastUsed', () => {
   it('sends all used translations to the server every 10 seconds', async () => {
@@ -12,7 +12,7 @@ describe('LastUsed', () => {
       },
     });
     const storage = new InMemoryStorage();
-    const lastUsed = new UsedTranslations(storage, {
+    const lastUsed = new LastUsed(storage, {
       debounce: 10,
       usedPath: url,
     });
