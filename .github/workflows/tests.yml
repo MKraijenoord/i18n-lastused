@@ -14,4 +14,3 @@ jobs:
         run: npm ci
       - name: Running tests
         run: npm run test
-      - run: echo "🍏 This job's status is ${{ job.status }}."
