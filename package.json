@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "I18n plugin to help you find unused translations",
   "main": "./src/plugin.ts",
+  "type": "module",
   "scripts": {
     "test": "vitest",
     "build": "esbuild src/plugin.ts --bundle --minify --outdir=lib"

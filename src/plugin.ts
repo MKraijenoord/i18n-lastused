@@ -1,6 +1,5 @@
-import { i18n, ThirdPartyModule } from 'i18next';
-import type { InitOptions } from 'i18next/typescript/options';
-import LastUsed from './LastUsed';
+import { i18n, InitOptions, ThirdPartyModule } from 'i18next';
+import LastUsed from './LastUsed.js';
 
 const plugin: ThirdPartyModule = {
   type: '3rdParty',

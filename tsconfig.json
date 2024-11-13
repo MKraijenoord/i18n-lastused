@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ES2022",
+    "moduleResolution": "NodeNext",
     "lib": ["es2020", "dom"],
     "strict": true,
     "esModuleInterop": true,
@@ -25,9 +26,12 @@
     "node_modules"
   ],
   "typeRoots": [
+    "./types",
+    "./node_modules",
     "./node_modules/@types"
   ],
   "types": [
+    "vitest.d.ts",
     "vitest/globals",
     "node"
   ]

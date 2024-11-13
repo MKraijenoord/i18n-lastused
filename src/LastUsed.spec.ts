@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock';
 import { describe, expect, it } from 'vitest';
-import InMemoryStorage from '../test/InMemoryStorage';
-import LastUsed from './LastUsed';
+import InMemoryStorage from '../test/InMemoryStorage.js';
+import LastUsed from './LastUsed.js';
 
 describe('LastUsed', () => {
   it('sends all used translations to the server every 10 seconds', async () => {
@@ -31,7 +31,7 @@ describe('LastUsed', () => {
     expect(storeValues).to.have.property('ns2');
     expect(storeValues.ns1).to.have.property('misc.any.key');
     expect(storeValues.ns2).to.have.property('misc.other.key');
-    expect(storeValues.ns1['misc.any.key']).to.be.a('string');
-    expect(storeValues.ns2['misc.other.key']).to.be.a('string');
+    expect(storeValues.ns1['misc.any.key']).toBeValidDate();
+    expect(storeValues.ns2['misc.other.key']).toBeValidDate();
   });
 });
