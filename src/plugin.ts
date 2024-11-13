@@ -5,11 +5,11 @@ import LastUsed from './LastUsed';
 const plugin: ThirdPartyModule = {
   type: '3rdParty',
   init(i18nextInstance: i18n): void {
-    const ut = new LastUsed(window.sessionStorage, {
+    const lu = new LastUsed(window.sessionStorage, {
       usedPath: i18nextInstance.options.lastUsed.usedPath,
       debounce: i18nextInstance.options.lastUsed.debounce,
     });
-    ut.init();
+    lu.init();
     const { resourceStore } = i18nextInstance.services;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
@@ -23,7 +23,7 @@ const plugin: ThirdPartyModule = {
       key: string,
       options?: Pick<InitOptions, 'keySeparator' | 'ignoreJSONStructure'>,
     ) => {
-      ut.isUsed(ns, key);
+      lu.isUsed(ns, key);
       return origGetResource.call(resourceStore, lng, ns, key, options);
     };
   },
