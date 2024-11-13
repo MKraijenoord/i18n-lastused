@@ -1,5 +1,8 @@
 # Getting started
 
+This plugin has taken inspiration from [locize-lastused](https://github.com/locize/locize-lastused).
+Only now you can use any API endpoint to sent the data to.
+
 Source can be loaded via npm or downloaded from this repo.
 
 ```bash
