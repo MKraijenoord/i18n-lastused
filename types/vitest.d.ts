@@ -1,7 +1,7 @@
-import 'vitest'
+import 'vitest';
 
 interface CustomMatchers<R = unknown> {
-  toBeValidDate: () => R
+  toBeValidDate: () => R;
 }
 
 declare module 'vitest' {

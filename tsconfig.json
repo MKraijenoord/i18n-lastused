@@ -22,17 +22,7 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "typeRoots": [
-    "./types",
-    "./node_modules",
-    "./node_modules/@types"
-  ],
-  "types": [
-    "vitest.d.ts",
-    "vitest/globals",
-    "node"
-  ]
+  "exclude": ["node_modules"],
+  "typeRoots": ["./types", "./node_modules", "./node_modules/@types"],
+  "types": ["vitest.d.ts", "vitest/globals", "node"]
 }
