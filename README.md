@@ -18,6 +18,17 @@ npm install i18n-lastused
 }
 ```
 
+# Request
+
+```text
+POST [URL to API endpoint]
+body: {
+  [namespace] : {
+    [key]: "[Date ISO string]"
+  }
+}
+```
+
 # Using with i18next
 
 Options can be passed in by setting options.lastUsed in i18next.init:
