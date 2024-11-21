@@ -1,5 +1,5 @@
 {
-  "name": "i18n-lastused-plugin",
+  "name": "i18n-lastused",
   "version": "1.0.0",
   "description": "I18n plugin to help you find unused translations",
   "main": "./src/plugin.ts",
