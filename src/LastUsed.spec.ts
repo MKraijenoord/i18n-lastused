@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, afterEach } from 'vitest';
 import InMemoryStorage from '../test/InMemoryStorage.js';
 import LastUsed from './LastUsed.js';
 
@@ -41,7 +41,9 @@ describe('LastUsed', () => {
     await setupLastUsed(url, 35);
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(3);
-    const values = JSON.parse(fetchMock.callHistory.calls(url)[0].options.body);
+    const values = JSON.parse(
+      fetchMock.callHistory.calls(url)[0].options.body as string,
+    );
     expect(values).toMatchObject({
       ns1: {
         'misc.any.key': expect.toBeValidDate(),
@@ -51,10 +53,10 @@ describe('LastUsed', () => {
       },
     });
     expect(
-      JSON.parse(fetchMock.callHistory.calls(url)[0].options.body),
+      JSON.parse(fetchMock.callHistory.calls(url)[0].options.body as string),
     ).toMatchObject({});
     expect(
-      JSON.parse(fetchMock.callHistory.calls(url)[0].options.body),
+      JSON.parse(fetchMock.callHistory.calls(url)[0].options.body as string),
     ).toMatchObject({});
   });
 
@@ -73,7 +75,7 @@ describe('LastUsed', () => {
     await setupLastUsed(url, 0, storage);
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(1);
-    const settings = JSON.parse(storage.getItem('lastUsedSettings'));
+    const settings = JSON.parse(storage.getItem('lastUsedSettings') || '{}');
     expect(settings.lastSend > moreThanDebounce.toISOString()).toBeTruthy();
   });
 
