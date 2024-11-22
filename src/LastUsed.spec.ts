@@ -57,7 +57,7 @@ describe('LastUsed', () => {
   });
 
   it('sends all used translations to the server every 10 seconds', async () => {
-    const url = 'https://endpoint.example/v1/api/used';
+    const url = 'https://endpoint.every-ten-seconds/v1/api/used';
     await setupLastUsed(url, 35);
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(3);
@@ -100,7 +100,7 @@ describe('LastUsed', () => {
   });
 
   it('clears the storage after sending', async () => {
-    const url = 'https://endpoint.example-2/v1/api/used';
+    const url = 'https://endpoint.clear-storage/v1/api/used';
     const storage = await setupLastUsed(url);
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(1);
