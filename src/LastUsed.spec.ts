@@ -4,13 +4,13 @@ import InMemoryStorage from '../test/InMemoryStorage.js';
 import LastUsed from './LastUsed.js';
 
 describe('LastUsed', () => {
-  it('sends all used translations to the server every 10 seconds', async () => {
-    const url = 'https://endpoint.example/v1/api/used';
+  async function setupLastUsed(url: string, wait: number = 11): Promise<Storage> {
     fetchMock.post(url, 200, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
     const storage = new InMemoryStorage();
     const lastUsed = new LastUsed(storage, {
       debounce: 10,
@@ -22,16 +22,39 @@ describe('LastUsed', () => {
     lastUsed.isUsed('ns2', 'misc.other.key');
 
     await new Promise<void>((resolve) => {
-      setTimeout(() => resolve(), 35);
+      setTimeout(() => resolve(), wait);
     });
 
+    return storage;
+  }
+
+  afterEach(() => {
+    fetchMock.clearHistory();
+  })
+
+  it('sends all used translations to the server every 10 seconds', async () => {
+    const url = 'https://endpoint.example/v1/api/used';
+    await setupLastUsed(url, 35);
+
     expect(fetchMock.callHistory.calls(url)).to.have.length(3);
-    const storeValues = JSON.parse(storage.getItem('translations') as string);
-    expect(storeValues).to.have.property('ns1');
-    expect(storeValues).to.have.property('ns2');
-    expect(storeValues.ns1).to.have.property('misc.any.key');
-    expect(storeValues.ns2).to.have.property('misc.other.key');
-    expect(storeValues.ns1['misc.any.key']).toBeValidDate();
-    expect(storeValues.ns2['misc.other.key']).toBeValidDate();
+    const values = JSON.parse(fetchMock.callHistory.calls(url)[0].options.body);
+    expect(values).toMatchObject({
+      ns1: {
+        'misc.any.key': expect.toBeValidDate(),
+      },
+      ns2: {
+        'misc.other.key': expect.toBeValidDate(),
+      },
+    });
+    expect(JSON.parse(fetchMock.callHistory.calls(url)[0].options.body)).toMatchObject({});
+    expect(JSON.parse(fetchMock.callHistory.calls(url)[0].options.body)).toMatchObject({});
   });
+
+  it('clears the storage after sending', async () => {
+    const url = 'https://endpoint.example-2/v1/api/used';
+    const storage = await setupLastUsed(url);
+
+    expect(fetchMock.callHistory.calls(url)).to.have.length(1);
+    expect(storage.getItem('translations')).to.equal('{}');
+  })
 });

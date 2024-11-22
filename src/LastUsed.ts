@@ -40,7 +40,11 @@ export default class LastUsed {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.getTranslations()),
-    }).catch(console.error);
+    })
+      .then(() => {
+        this.storage.setItem('translations', JSON.stringify({}));
+      })
+      .catch(console.error);
   }
 
   isUsed(ns: string, key: string): void {
