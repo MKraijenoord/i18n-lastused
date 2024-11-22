@@ -3,7 +3,7 @@
   "repository": {
     "url": "https://github.com/MKraijenoord/i18n-lastused"
   },
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "I18n plugin to help you find unused translations",
   "main": "./src/plugin.ts",
   "type": "module",
