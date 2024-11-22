@@ -73,6 +73,8 @@ describe('LastUsed', () => {
     await setupLastUsed(url, 0, storage);
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(1);
+    const settings = JSON.parse(storage.getItem('lastUsedSettings'));
+    expect(settings.lastSend > moreThanDebounce.toISOString()).toBeTruthy();
   });
 
   it('clears the storage after sending', async () => {
