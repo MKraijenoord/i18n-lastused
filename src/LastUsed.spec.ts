@@ -4,7 +4,10 @@ import InMemoryStorage from '../test/InMemoryStorage.js';
 import LastUsed from './LastUsed.js';
 
 describe('LastUsed', () => {
-  async function setupLastUsed(url: string, wait: number = 11): Promise<Storage> {
+  async function setupLastUsed(
+    url: string,
+    wait: number = 11,
+  ): Promise<Storage> {
     fetchMock.post(url, 200, {
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +33,7 @@ describe('LastUsed', () => {
 
   afterEach(() => {
     fetchMock.clearHistory();
-  })
+  });
 
   it('sends all used translations to the server every 10 seconds', async () => {
     const url = 'https://endpoint.example/v1/api/used';
@@ -46,8 +49,12 @@ describe('LastUsed', () => {
         'misc.other.key': expect.toBeValidDate(),
       },
     });
-    expect(JSON.parse(fetchMock.callHistory.calls(url)[0].options.body)).toMatchObject({});
-    expect(JSON.parse(fetchMock.callHistory.calls(url)[0].options.body)).toMatchObject({});
+    expect(
+      JSON.parse(fetchMock.callHistory.calls(url)[0].options.body),
+    ).toMatchObject({});
+    expect(
+      JSON.parse(fetchMock.callHistory.calls(url)[0].options.body),
+    ).toMatchObject({});
   });
 
   it('clears the storage after sending', async () => {
@@ -56,5 +63,5 @@ describe('LastUsed', () => {
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(1);
     expect(storage.getItem('translations')).to.equal('{}');
-  })
+  });
 });
