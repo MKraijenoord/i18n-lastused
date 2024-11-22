@@ -36,6 +36,26 @@ describe('LastUsed', () => {
     fetchMock.clearHistory();
   });
 
+  it('clears interval if already set', async () => {
+    const url = 'https://endpoint.clear-interval/v1/api/used';
+    const initialStorage = new InMemoryStorage();
+    initialStorage.setItem(
+      'lastUsedSettings',
+      JSON.stringify({
+        intervalId: '12345',
+        lastSend: new Date().toISOString(),
+      }),
+    );
+
+    await setupLastUsed(url, 0, initialStorage);
+
+    const settings = JSON.parse(
+      initialStorage.getItem('lastUsedSettings') || '{}',
+    );
+    expect(parseInt(settings.intervalId)).not.toBeNaN();
+    expect(parseInt(settings.intervalId)).not.toBe(12345);
+  });
+
   it('sends all used translations to the server every 10 seconds', async () => {
     const url = 'https://endpoint.example/v1/api/used';
     await setupLastUsed(url, 35);
