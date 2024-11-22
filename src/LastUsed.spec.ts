@@ -4,9 +4,11 @@ import InMemoryStorage from '../test/InMemoryStorage.js';
 import LastUsed from './LastUsed.js';
 
 describe('LastUsed', () => {
+  const debounce = 10;
   async function setupLastUsed(
     url: string,
     wait: number = 11,
+    storage: Storage = new InMemoryStorage(),
   ): Promise<Storage> {
     fetchMock.post(url, 200, {
       headers: {
@@ -14,9 +16,8 @@ describe('LastUsed', () => {
       },
     });
 
-    const storage = new InMemoryStorage();
     const lastUsed = new LastUsed(storage, {
-      debounce: 10,
+      debounce,
       usedPath: url,
     });
 
@@ -55,6 +56,23 @@ describe('LastUsed', () => {
     expect(
       JSON.parse(fetchMock.callHistory.calls(url)[0].options.body),
     ).toMatchObject({});
+  });
+
+  it('sends also if last send time was longer than debounce', async () => {
+    const url = 'https://endpoint.longer-than-debounce/v1/api/used';
+    const storage = new InMemoryStorage();
+    const moreThanDebounce = new Date();
+    moreThanDebounce.setSeconds(moreThanDebounce.getSeconds() - debounce - 10);
+    storage.setItem(
+      'lastUsedSettings',
+      JSON.stringify({
+        intervalId: '',
+        lastSend: moreThanDebounce.toISOString(),
+      }),
+    );
+    await setupLastUsed(url, 0, storage);
+
+    expect(fetchMock.callHistory.calls(url)).to.have.length(1);
   });
 
   it('clears the storage after sending', async () => {
