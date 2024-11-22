@@ -9,6 +9,10 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'html', 'json-summary', 'json'],
       include: ['src/**/*.ts'],
+      exclude: ['src/plugin.ts'],
+      thresholds: {
+        '100': true,
+      },
     },
   },
 });

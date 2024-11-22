@@ -50,7 +50,7 @@ describe('LastUsed', () => {
     await setupLastUsed(url, 0, initialStorage);
 
     const settings = JSON.parse(
-      initialStorage.getItem('lastUsedSettings') || '{}',
+      initialStorage.getItem('lastUsedSettings') as string,
     );
     expect(parseInt(settings.intervalId)).not.toBeNaN();
     expect(parseInt(settings.intervalId)).not.toBe(12345);
@@ -95,7 +95,7 @@ describe('LastUsed', () => {
     await setupLastUsed(url, 0, storage);
 
     expect(fetchMock.callHistory.calls(url)).to.have.length(1);
-    const settings = JSON.parse(storage.getItem('lastUsedSettings') || '{}');
+    const settings = JSON.parse(storage.getItem('lastUsedSettings') as string);
     expect(settings.lastSend > moreThanDebounce.toISOString()).toBeTruthy();
   });
 
